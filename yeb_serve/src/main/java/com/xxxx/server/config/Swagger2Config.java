@@ -34,6 +34,7 @@ public class Swagger2Config {
                 .apis(RequestHandlerSelectors.basePackage("com.xxxx.server.controller"))
                 .paths(PathSelectors.any())
                 .build()
+                //设置登陆
                 .securityContexts(securityContexts())
                 .securitySchemes(securitySchemes());
 

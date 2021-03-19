@@ -7,6 +7,7 @@ import com.xxxx.server.mapper.AdminMapper;
 import com.xxxx.server.pojo.Admin;
 import com.xxxx.server.pojo.ResBean;
 import com.xxxx.server.service.IAdminService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -45,11 +47,16 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, Admin> implements
      * 登入返回token
      * @param username
      * @param password
+     * @param code
      * @param request
      * @return
      */
     @Override
-    public ResBean login(String username, String password, HttpServletRequest request) {
+    public ResBean login(String username, String password, String code, HttpServletRequest request) {
+        String captcha = (String) request.getSession().getAttribute("captcha");
+        if(StringUtils.isEmpty(code)||!captcha.equalsIgnoreCase(code)){
+            return ResBean.error("验证码输入出错");
+        }
         //登入
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         if(null == userDetails||!passwordEncoder.matches(password,userDetails.getPassword())){

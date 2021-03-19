@@ -27,10 +27,11 @@ public class LoginController {
     @Autowired
     private IAdminService adminService;
 
-    @ApiOperation(value = "登入之后放回token")
+    @ApiOperation(value = "登入之后返回token")
     @PostMapping("/login")
     public ResBean login(@RequestBody AdminLoginParam adminLoginParam, HttpServletRequest request) {
-        return adminService.login(adminLoginParam.getUsername(), adminLoginParam.getPassword(), request);
+        return adminService.login(adminLoginParam.getUsername(),
+                adminLoginParam.getPassword(),adminLoginParam.getCode(),request);
 
     }
 

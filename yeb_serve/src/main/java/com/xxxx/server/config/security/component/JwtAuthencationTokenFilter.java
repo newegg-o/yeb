@@ -1,5 +1,6 @@
-package com.xxxx.server.config.security;
+package com.xxxx.server.config.security.component;
 
+import com.xxxx.server.config.security.component.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

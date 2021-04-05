@@ -117,5 +117,19 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
 
         return employeeMapper.getEmplyee(id);
     }
+
+    /**
+     * 获取所有员工账套
+     * @param currentPage
+     * @param size
+     * @return
+     */
+    @Override
+    public ResPageBean getEmployeeWithSalary(Integer currentPage, Integer size) {
+        Page<Employee> page=new Page<>(currentPage,size);
+        IPage<Employee> employeeIPage= employeeMapper.getEmployeeWithSalary(page);
+        ResPageBean resPageBean = new ResPageBean(employeeIPage.getTotal(),employeeIPage.getRecords());
+        return resPageBean;
+    }
 }
 
